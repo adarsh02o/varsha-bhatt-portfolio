@@ -33,7 +33,7 @@ const rows = [
   },
   {
     label: "LINKEDIN",
-    value: "linkedin.com/in/varsha-bhatt",
+    value: "linkedin.com/in/varsha-bhatt-9a8a2a231",
     href: LINKEDIN,
     icon: icon(
       <>

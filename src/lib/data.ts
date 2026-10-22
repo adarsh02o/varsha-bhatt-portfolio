@@ -1,7 +1,7 @@
 export const RESUME_URL = "/Varsha_Bhatt_Resume_2026.pdf";
 export const EMAIL = "bhattversha10@gmail.com";
 export const PHONE = "+917974656773";
-export const LINKEDIN = "https://www.linkedin.com/in/varsha-bhatt-9a8a2a231/";
+export const LINKEDIN = "https://www.linkedin.com/in/varsha-bhatt-9a8a2a231";
 
 export const nav = [
   { id: "skills", label: "Skills" },

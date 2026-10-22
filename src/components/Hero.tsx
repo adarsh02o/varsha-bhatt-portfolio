@@ -3,7 +3,7 @@
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
-import photo from "../../media/1791455019546.jpeg";
+import photo from "../../media/varsha-profile.jpg";
 import { RESUME_URL } from "@/lib/data";
 import { EASE, SplitWords } from "./motion";
 
@@ -98,7 +98,7 @@ export default function Hero() {
                 </motion.span>
               </div>
               <div style={{ padding: 18, position: "relative" }}>
-                <div className="photo" style={{ height: 300, borderRadius: 12, position: "relative", overflow: "hidden" }}>
+                <div className="photo" style={{ height: 340, borderRadius: 12, position: "relative", overflow: "hidden" }}>
                   <Image
                     src={photo}
                     alt="Varsha Bhatt"
@@ -106,7 +106,7 @@ export default function Hero() {
                     priority
                     placeholder="blur"
                     sizes="(max-width: 760px) 100vw, 420px"
-                    style={{ objectFit: "cover", objectPosition: "center 18%" }}
+                    style={{ objectFit: "cover", objectPosition: "center 12%" }}
                   />
                   <motion.span
                     className="scan"

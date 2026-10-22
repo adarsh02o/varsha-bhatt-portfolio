@@ -737,7 +737,7 @@ a.contact-value:hover {
     border-radius: 18px;
   }
   .id-card .photo {
-    height: 240px !important;
+    height: 300px !important;
   }
   .floater.f1 { top: -8px !important; left: -6px !important; }
   .floater.f2 { top: 150px !important; right: -8px !important; }

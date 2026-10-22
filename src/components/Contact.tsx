@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
+import { u } from "@/lib/u";
 import { useRef, type ReactNode } from "react";
 import { EMAIL, LINKEDIN, PHONE, RESUME_URL } from "@/lib/data";
 import { EASE, Reveal, SplitWords } from "./motion";
@@ -63,7 +64,7 @@ export default function Contact() {
   return (
     <motion.section id="contact" ref={ref} className="contact" style={{ scale, borderTopLeftRadius: radius, borderTopRightRadius: radius }}>
       <div className="wrap contact-grid">
-        <div style={{ gridColumn: "span 6", paddingRight: 24 }}>
+        <div style={{ gridColumn: "span 6", paddingRight: u(24) }}>
           <Reveal className="eyebrow" style={{ color: "var(--night-accent)" }} y={12}>
             Contact
           </Reveal>
@@ -71,12 +72,12 @@ export default function Contact() {
             <SplitWords text="Let's ship quality software together." stagger={0.07} />
           </h2>
           <Reveal as="p" delay={0.3} blur y={20}>
-            <span style={{ display: "block", fontSize: 17, lineHeight: 1.6, color: "var(--night-text)", margin: "0 0 30px", maxWidth: 460 }}>
+            <span style={{ display: "block", fontSize: u(17), lineHeight: 1.6, color: "var(--night-text)", margin: `0 0 ${u(30)}`, maxWidth: u(460) }}>
               Open to QA roles in manual, API and mobile testing. Pick the quickest way to reach me.
             </span>
           </Reveal>
           <Reveal delay={0.45} y={20}>
-            <div className="contact-ctas" style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <div className="contact-ctas" style={{ display: "flex", gap: u(14), flexWrap: "wrap" }}>
               <motion.a className="btn pri lg" href={RESUME_URL} target="_blank" rel="noreferrer" whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }}>
                 View Resume
               </motion.a>

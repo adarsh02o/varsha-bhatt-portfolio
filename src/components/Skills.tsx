@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { skills } from "@/lib/data";
+import { u } from "@/lib/u";
 import { EASE, itemPop, Reveal, SplitWords } from "./motion";
 
 export default function Skills() {
@@ -19,7 +20,7 @@ export default function Skills() {
             <motion.div
               key={g.title}
               className="card"
-              style={{ gridColumn: `span ${g.span}`, padding: 24 }}
+              style={{ gridColumn: `span ${g.span}`, padding: u(24) }}
               initial={{ opacity: 0, y: 50, x: i % 2 ? 40 : -40 }}
               whileInView={{ opacity: 1, y: 0, x: 0 }}
               viewport={{ once: true, amount: 0.35 }}

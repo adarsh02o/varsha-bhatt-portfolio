@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { u } from "@/lib/u";
 import { useRef, useState } from "react";
 import { projects, type Project } from "@/lib/data";
 import { EASE, Reveal, SplitWords } from "./motion";
@@ -39,7 +40,7 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
         </div>
         <h3>{p.name}</h3>
         <p>{p.desc}</p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: u(6) }}>
           <span className="chip n">{p.team}</span>
           {p.stack.map((s) => (
             <span key={s} className="chip">
@@ -71,7 +72,7 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
               transition={{ duration: 0.45, ease: EASE }}
             >
               {p.details.map((d) => (
-                <p key={d} style={{ marginTop: 8 }}>
+                <p key={d} style={{ marginTop: u(8) }}>
                   {d}
                 </p>
               ))}
@@ -81,7 +82,7 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
         <div className="proj-foot">
           <button type="button" className="linkish" aria-expanded={open} aria-controls={detailsId} onClick={() => setOpen((o) => !o)}>
             {open ? "Hide case study" : "View case study"}
-            <motion.span animate={{ rotate: open ? 90 : 0 }} style={{ display: "inline-block", marginLeft: 6 }}>
+            <motion.span animate={{ rotate: open ? 90 : 0 }} style={{ display: "inline-block", marginLeft: u(6) }}>
               →
             </motion.span>
           </button>

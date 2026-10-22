@@ -2,15 +2,23 @@
 
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import Image from "next/image";
-import { useRef } from "react";
+import { u } from "@/lib/u";
+import { useEffect, useRef, useState } from "react";
 import photo from "../../media/varsha-profile.jpg";
 import { RESUME_URL } from "@/lib/data";
 import { EASE, SplitWords } from "./motion";
 
 const floats = [
-  { label: "Manual Testing", cls: "f1", style: { top: 56, left: -46 }, speed: -120, delay: 1.0 },
-  { label: "API Testing", cls: "f2", style: { top: 240, right: -34 }, speed: -40, delay: 1.15 },
-  { label: "Agile/Scrum", cls: "f3", style: { bottom: 90, left: -38 }, speed: -180, delay: 1.3 },
+  { label: "Manual Testing", cls: "f1", style: { top: u(84), left: u(-72) }, speed: -120, delay: 1.0 },
+  { label: "API Testing", cls: "f2", style: { top: u(250), right: u(-52) }, speed: -40, delay: 1.15 },
+  { label: "Agile/Scrum", cls: "f3", style: { bottom: u(170), left: u(-64) }, speed: -180, delay: 1.3 },
+];
+
+const corners = [
+  { cls: "tl", x: -14, y: -14 },
+  { cls: "tr", x: 14, y: -14 },
+  { cls: "bl", x: -14, y: 14 },
+  { cls: "br", x: 14, y: 14 },
 ];
 
 export default function Hero() {
@@ -18,9 +26,19 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const p = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
 
-  const copyY = useTransform(p, [0, 1], [0, 140]);
+  // Copy and card are stacked on phones, so opposing drifts would make them collide.
+  const [stacked, setStacked] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 760px)");
+    const sync = () => setStacked(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const copyY = useTransform(p, [0, 1], [0, stacked ? 0 : 140]);
   const copyOpacity = useTransform(p, [0, 0.75], [1, 0]);
-  const cardY = useTransform(p, [0, 1], [0, -90]);
+  const cardY = useTransform(p, [0, 1], [0, stacked ? 0 : -90]);
   const cardRotate = useTransform(p, [0, 1], [0, -6]);
   const shadowX = useTransform(p, [0, 1], [0, 26]);
   const shadowY = useTransform(p, [0, 1], [0, 30]);
@@ -36,7 +54,7 @@ export default function Hero() {
         <motion.div className="hero-copy" style={{ y: copyY, opacity: copyOpacity }}>
           <motion.div
             className="chip"
-            style={{ marginBottom: 26, background: "var(--pass-bg)", color: "var(--pass-ink)" }}
+            style={{ marginBottom: u(26), background: "var(--pass-bg)", color: "var(--pass-ink)" }}
             initial={{ opacity: 0, y: 16, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
@@ -83,6 +101,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0, rotate: 0 }}
           transition={{ duration: 1.1, delay: 0.35, ease: EASE }}
         >
+          <div className="badge-stage">
           <motion.div style={{ y: cardY, rotate: cardRotate, position: "relative" }}>
             <motion.div className="hero-shadow" style={{ x: shadowX, y: shadowY }} />
             <div className="card id-card">
@@ -97,27 +116,44 @@ export default function Hero() {
                   PASS
                 </motion.span>
               </div>
-              <div style={{ padding: 18, position: "relative" }}>
-                <div className="photo" style={{ height: 340, borderRadius: 12, position: "relative", overflow: "hidden" }}>
+              <div className="id-body">
+                <div className="id-photo">
                   <Image
                     src={photo}
                     alt="Varsha Bhatt"
                     fill
                     priority
                     placeholder="blur"
-                    sizes="(max-width: 760px) 100vw, 420px"
+                    sizes="(max-width: 760px) 90vw, 480px"
                     style={{ objectFit: "cover", objectPosition: "center 12%" }}
                   />
+                  {corners.map((c, i) => (
+                    <motion.span
+                      key={c.cls}
+                      className={`corner ${c.cls}`}
+                      aria-hidden="true"
+                      initial={{ opacity: 0, x: c.x, y: c.y }}
+                      animate={{ opacity: 1, x: 0, y: 0 }}
+                      transition={{ duration: 0.7, delay: 1.1 + i * 0.06, ease: EASE }}
+                    />
+                  ))}
                   <motion.span
-                    className="scan"
-                    aria-hidden="true"
-                    initial={{ top: "0%" }}
-                    animate={{ top: ["0%", "100%", "0%"] }}
-                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-                  />
+                    className="id-tag"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1.5, ease: EASE }}
+                  >
+                    <span className="live-dot" />
+                    3+ YRS · WEB · MOBILE · API
+                  </motion.span>
                 </div>
-                <div style={{ marginTop: 16, font: "700 22px var(--font-display)" }}>Varsha Bhatt</div>
-                <div style={{ fontSize: 14, color: "var(--muted-2)", marginTop: 2 }}>Indore, India · Codezilla Technology</div>
+                <div className="id-meta">
+                  <div>
+                    <div className="id-name">Varsha Bhatt</div>
+                    <div className="id-role">QA Engineer · Indore, India</div>
+                  </div>
+                  <span className="mono id-no">#QA-2023</span>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -137,6 +173,7 @@ export default function Hero() {
               </motion.span>
             </motion.div>
           ))}
+          </div>
         </motion.div>
       </div>
     </section>

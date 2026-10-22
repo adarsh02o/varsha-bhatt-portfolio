@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useSpring } from "motion/react";
+import { u } from "@/lib/u";
 import { useRef } from "react";
 import { experienceBullets } from "@/lib/data";
 import { EASE, Reveal, SplitWords } from "./motion";
@@ -19,14 +20,14 @@ export default function Experience() {
         <h2 className="h2">
           <SplitWords text="Where I've worked & studied" />
         </h2>
-        <div ref={ref} className="grid12" style={{ gap: 24 }}>
+        <div ref={ref} className="grid12" style={{ gap: u(24) }}>
           <Reveal className="card exp-card" style={{ gridColumn: "span 8" }} x={-50} y={0}>
             <motion.span className="exp-bar" style={{ background: "var(--accent)", scaleY: draw }} aria-hidden="true" />
             <div className="exp-head">
-              <h3 style={{ margin: 0, fontSize: 24 }}>QA Engineer</h3>
+              <h3 style={{ margin: 0, fontSize: u(24) }}>QA Engineer</h3>
               <span className="chip">Feb 2023 – Present</span>
             </div>
-            <div style={{ fontSize: 15, color: "var(--muted-2)", margin: "6px 0 18px" }}>
+            <div style={{ fontSize: u(15), color: "var(--muted-2)", margin: `${u(6)} 0 ${u(18)}` }}>
               Codezilla Technology &amp; Consultancy Pvt. Ltd · Indore
             </div>
             <motion.ul
@@ -53,9 +54,9 @@ export default function Experience() {
             <span className="tag" style={{ background: "#eef0f5", color: "var(--ink-2)" }}>
               EDUCATION
             </span>
-            <h3 style={{ margin: "14px 0 6px", fontSize: 22 }}>B.E. Computer Science</h3>
-            <div style={{ fontSize: 15, color: "var(--muted-2)", lineHeight: 1.5 }}>Radharaman Engineering College, Bhopal</div>
-            <div className="chip n" style={{ marginTop: 16 }}>
+            <h3 style={{ margin: `${u(14)} 0 ${u(6)}`, fontSize: u(22) }}>B.E. Computer Science</h3>
+            <div style={{ fontSize: u(15), color: "var(--muted-2)", lineHeight: 1.5 }}>Radharaman Engineering College, Bhopal</div>
+            <div className="chip n" style={{ marginTop: u(16) }}>
               2014 – 2018
             </div>
           </Reveal>
